@@ -161,6 +161,7 @@ module ApplicationHelper
   <link rel="EditURI" type="application/rsd+xml" title="RSD" href="#{ url_for :controller => '/xml', :action => 'rsd' }" />
   <link rel="alternate" type="application/atom+xml" title="Atom" href="#{ feed_atom }" />
   <link rel="alternate" type="application/rss+xml" title="RSS" href="#{ feed_rss }" />
+  <!-- AppStoreHQ:developer_claim_code:cc3dd550cae3578e5a0fac95475470b750d2f206 -->
   #{ javascript_include_tag 'cookies', 'prototype', 'effects', 'builder', 'typo', :cache => true }
   #{ stylesheet_link_tag 'coderay', 'user-styles', :cache => true }
   #{ javascript_include_lang }
