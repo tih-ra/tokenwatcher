@@ -1,0 +1,34 @@
+<% @page_heading = _('Write') %>
+<% subtabs_for(:settings) %>
+
+<% form_tag :action => 'update' do %>
+
+<div class='ui-accordion ui-widget ui-helper-reset ui-accordion-icons settings'>
+  <h3 class='ui-accordion-header ui-helper-reset ui-state-default ui-corner-top'><span class='ui-icon ui-icon-gear'></span> <%= _("Publish")%></h3>
+  <div class='ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active'>
+    <div class='setting'>
+      <label class="float" for="setting_send_outbound_pings"><%= _("Send trackbacks")%></label>      
+      <div class='input_text'>
+        <%= check_box(:setting, :send_outbound_pings) %>
+        <span><%= _("When publishing articles, Typo can send trackbacks to websites that you link to. This should be disabled for private blogs as it will leak non-public information to sites that you're discussing. For public blogs, there's no real point in disabling this.")%></span>
+      </div>      
+    </div>
+    <div class='setting clear'>
+      <label class="float" for="setting_ping_urls"><%= _("URLs to ping automatically")%></label>
+      <div class='input_text'>
+        <%= text_area(:setting, :ping_urls, :rows => 3, :class => 'medium') %>
+      </div>      
+    </div>
+    <div class='setting clear'>
+      <label class="float" for="setting_geourl_location"><%= _("Latitude, Longitude")%></label>
+      <div class='input_text'>
+        <%= text_field(:setting, :geourl_location, { :class => 'medium'})%>
+        <span><%= _("Display")%> <a href="http://geourl.org"><%= _("your lattitude and longitude")%></a> (<%= _("exemple")%> <tt>47.774,-122.201</tt>)</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= hidden_field_tag 'from', 'write' %>
+<%= render :partial => 'submit' %>
+<% end %>

@@ -1,0 +1,34 @@
+<% @page_heading = _("Comments for %s", @article.title) %>
+<% @link_to_new = link_to(_("Add a comment"), '#comment', {:id => 'dialog-link', :class => 'ui-state-default ui-corner-all'}) %>
+
+<% content_for (:tasks) do %>
+  <%= subtab(_('All comments'), {:action => :article, :id => @article.id, :ham => 'y', :spam => 'y'} ) %>
+  <%= subtab(_('Limit to ham'), {:action => :article, :id => @article.id, :ham => 'y'}) %>
+  <%= subtab(_('Limit to spam'), {:action => :article, :id => @article.id, :spam => 'y'}) %>
+<% end %>
+
+<div class="list">
+  <ol>
+  <% for comment in @comments -%>
+    <li <%= alternate_class %>>
+      <p><strong><%= mail_to h(comment.email), h(comment.author) %></strong> |
+      <%= link_to_unless comment.url.blank?, h(comment.url), comment.url %> | 
+      IP: <%=h comment.ip %></p>
+      <%= h(comment.body) %>
+      <p>
+        <%= format_date comment.created_at %> – [ 
+        <%= link_to_edit _("Edit"), comment %> | 
+        <%= link_to _("Delete") , {:action => 'delete', :id => comment.id, :search => params[:search], :page => params[:page] },  :confirm => _("Are you sure?"), :method => :post %> |
+        <%= comment.state %> ]
+      </p>
+    </li>
+  <% end -%>
+  </ol>
+</div>
+
+<hr />  
+
+<% form_tag :action => "create" do %>
+  <%= render :partial => "form" %>
+  <%= cancel_or_save %>
+<% end %>

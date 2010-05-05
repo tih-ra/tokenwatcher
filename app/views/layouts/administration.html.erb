@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+  <title>Typo Administration:  <%= controller.controller_name %></title>
+  <meta http-equiv="imagetoolbar" content="no" />
+  <%= stylesheet_link_tag "growler", "administration", "lightbox" %>
+  <%= stylesheet_link_tag "administration_rtl" if ( _("Localization.rtl") == "1") %>
+  <%= javascript_include_tag "prototype", "effects", "builder", "dragdrop", "controls", "typo", "lightbox", "quicktags", "growler", "typo_carousel", "administration", :ckeditor %>
+  <%= calendar_date_select_includes %>  
+</head>
+<body>
+  <div id='header'>
+    <h1><%= link_to this_blog.blog_name, this_blog.base_url %></h1>
+  </div>
+  <%= link_to _("%s &raquo;", "Log out"), {:controller => "/accounts", :action=>"logout"}, :id => 'logout' %>
+
+
+  <div id='container' class='ui-tabs ui-widget ui-widget-content ui-corner-all'>
+    <div id='menu' class='ui-widget-header ui-corner-all'>
+      <ul id='tabs' class='ui-tabs-nav ui-helper-reset ui-helper-clearfix '>
+        <%= content_tag :li, (link_to _('Dashboard'), :controller => '/admin'), :class => class_dashboard  %>
+        <% for pm in current_user.project_modules %>
+          <%= content_tag :li, (link_to _(pm.menus.first.name ), pm.menus.first.url), :class => send("class_#{pm.name}") %>
+        <% end %>
+      </ul>
+      <ul class='ui-tabs-nav ui-helper-reset ui-helper-clearfix submenu'>
+        <%= yield :tasks %>
+      </ul>
+    </div>
+    
+    <div id='content' class='ui-tabs-panel'>
+      <%= render_the_flash %>
+      
+      <%= show_page_heading %>
+      <%= yield  %>
+    </div>
+  </div>
+
+    <div id="footer">
+      <%= link_to(this_blog.blog_name, this_blog.base_url) %> <%= _("is proudly powered by")%> Typo <%=h TYPO_VERSION %>
+    </div>
+</body>
+</html>

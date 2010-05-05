@@ -1,0 +1,9 @@
+--- 
+db_host: localhost
+threads: 2
+port-number: 4607
+db_name: tokenwatcher
+web-server: mongrel
+db_user: root
+database: mysql
+rails-environment: production
